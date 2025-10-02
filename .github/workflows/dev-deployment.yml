@@ -1,0 +1,32 @@
+name: dev-deployment
+run-name: ${{ github.actor }} is deploying the website to Dev
+on:
+  push:
+    branches:
+      - main
+jobs:
+  dev-deploy:
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.DEV_AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: S3 Deploy
+        uses: Reggionick/s3-deploy@v3.2.0
+        with:
+          folder: './'
+          bucket: ${{ secrets.DEV_S3_BUCKET }}
+          bucket-region: 'us-east-1'
+          dist-id: ${{ secrets.DEV_CLOUDFRONT_DISTRIBUTION_ID }}
+          invalidation: '/*'
+          delete-removed: true
+          private: true
+          files-to-include: "*.html ./**/*.html ./*.pdf ./**/*.js ./**/*.css ./**/*.jpg ./**/*.png ./**/*.webp ./**/*.svg ./**/*.ico"
+      - name: Rename the html files in S3
+        run: |
+          find . -type f -name "*.html" ! -name "index.html" | while read file; do
+            relative_path="${file#./}"
+            extensionless_path="${relative_path%.html}"
+            aws s3 cp "s3://${{ secrets.DEV_S3_BUCKET }}/$relative_path" "s3://${{ secrets.DEV_S3_BUCKET }}/$extensionless_path" --region us-east-1
+          done
