@@ -2,7 +2,6 @@ import Page from './Page.js';
 import { PAGES, IS_DEV, IS_LOCAL } from '../constants/constants.js';
 import PageController from '../controllers/PageController.js';
 import Server from '../clients/Server.js';
-import BroadcastController from '../controllers/BroadcastController.js';
 import { decompressConnectCode } from '../utils/connect-code.js';
 
 class ConnectPage extends Page {
@@ -87,7 +86,7 @@ class ConnectPage extends Page {
     }
 
     async onShow() {
-        console.log('Connect page shown');
+        console.log('TODO: Check cache for token');
         // Focus on the connect code input
         const connectCodeInput = document.getElementById('connect-code');
         if (connectCodeInput) {
@@ -145,9 +144,7 @@ class ConnectPage extends Page {
             try {
                 response = await Server.login();
                 Server.setToken(response.token);
-                // If successful, navigate to profiles page
-                console.log('TODO: Handle successful authentication and proceed to next step');
-                //PageController.showPage(PAGES.PROFILES);
+                PageController.showPage(PAGES.PROFILES);
             } catch (error) {
                 this.showAuthenticationError();
             }
@@ -204,13 +201,31 @@ class ConnectPage extends Page {
     }
 
     showCertificateError() {
-        console.log('Showing certificate error');
         this.hideForm();
         this.showCertificateStep();
     }
 
+    showNetworkError() {
+        this.hideForm();
+        this.showCertificateStep();
+        this.showNetworkErrorMessage();
+    }
+
+    showNetworkErrorMessage() {
+        const networkError = document.getElementById('network-error');
+        if (networkError) {
+            networkError.classList.remove('hidden');
+        }
+    }
+
+    hideNetworkErrorMessage() {
+        const networkError = document.getElementById('network-error');
+        if (networkError) {
+            networkError.classList.add('hidden');
+        }
+    }
+
     showAuthenticationError() {
-        console.log('Showing authentication error');
         this.hideForm();
         this.showAuthenticationStep();
     }
@@ -255,6 +270,9 @@ class ConnectPage extends Page {
         if (authenticationStep) {
             authenticationStep.classList.add('hidden');
         }
+        
+        // Hide network error message when hiding form
+        this.hideNetworkErrorMessage();
     }
 
     showForm() {
@@ -295,6 +313,7 @@ class ConnectPage extends Page {
         }
         // Clear any error messages
         this.clearError();
+        this.hideNetworkErrorMessage();
     }
 
     setupAuthMessageListener() {
@@ -310,52 +329,44 @@ class ConnectPage extends Page {
                 // Store the token
                 Server.setToken(event.data.token);
                 
+                if(this._backupListenerForLostOpener) {
+                    window.removeEventListener('focus', this._backupListenerForLostOpener);
+                }
+
                 // Close the authentication window
                 if (!this.authWindow.closed) {
                     this.authWindow.close();
                     this.authWindow = null;
                 }
                 
-                // Log TODO message
-                console.log('TODO: Handle successful authentication and proceed to next step');
-                //PageController.showPage(PAGES.PROFILES);
-                
-                // TODO: Navigate to next page or retry connection
+                PageController.showPage(PAGES.PROFILES);
             }
         });
     }
 
-    handleVisitServer(setupBroadcast = false) {
-        let serverUrl = Server.getServerUrl();
-        if(setupBroadcast) {
-            this.setupBroadcast();
-            serverUrl += '?broadcastId=' + BroadcastController.getBroadcastId();
-            if(IS_DEV) serverUrl += '&dev=' + ((IS_LOCAL) ? "local" : true);
-        } else if(IS_DEV) {
-            serverUrl += '?dev=' + ((IS_LOCAL) ? "local" : true);
-        }
+    handleVisitServer(backupListenerForLostOpener) {
+        let serverUrl = Server.getServerUrl() + '?hasOpener=true';
+        if(IS_DEV) serverUrl += '&dev=' + ((IS_LOCAL) ? "local" : true);
         if (serverUrl) {
             console.log("Opening server URL: ", serverUrl);
             this.authWindow = window.open(serverUrl, '_blank');
+            //Add listener to when this tab is focused again
+            if(backupListenerForLostOpener) {
+                if(!this._backupListenerForLostOpener) {
+                    this._backupListenerForLostOpener = async () => {
+                        window.removeEventListener('focus', this._backupListenerForLostOpener);
+                        try {
+                            await Server.ping();
+                            this.showAuthenticationError();
+                        } catch (error) {
+                            console.error('Error pinging server:', error);
+                            this.showNetworkError();
+                        }
+                    };
+                }
+                window.addEventListener('focus', this._backupListenerForLostOpener);
+            }
         }
-    }
-
-    // Safari sucks and loses window.opener when presenting the untrusted certificate page, so we
-    // need to setup a broadcast channel to communicate with an iframe in the new tab as backup
-    setupBroadcast() {
-        this.connectAvailableCallback = () => {
-            BroadcastController.sendBroadcast('connect_available_reply', true);
-            BroadcastController.unregisterSubject('connect_available', this.connectAvailableCallback);
-        };
-        this.tokenBroadcastCallback = (token) => {
-            Server.setToken(token);
-            console.log('TODO: Handle successful authentication and proceed to next step');
-            //PageController.showPage(PAGES.PROFILES);
-            BroadcastController.sendBroadcast('connect_token_received', true);
-            BroadcastController.unregisterSubject('connect_token', this.tokenBroadcastCallback);
-        };
-        BroadcastController.registerSubjectHandler('connect_available', this.connectAvailableCallback);
-        BroadcastController.registerSubjectHandler('connect_token', this.tokenBroadcastCallback);
     }
 
     toggleHelp() {
