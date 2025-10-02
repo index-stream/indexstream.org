@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Stream</title>
+    <link rel="stylesheet" href="./styles/main.css">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="description" content="Connect to your Index Media Server to stream videos, music, and view photos">
+    <script type="module" src="./scripts/main.js"></script>
+</head>
+<body class="bg-slate-900 text-white min-h-screen">
+    <!-- Main App Container -->
+    <div id="app" class="min-h-screen">
+        <!-- Initial Page -->
+        <div id="initial-page" class="flex flex-col items-center justify-center min-h-screen p-8">
+            <div class="max-w-4xl mx-auto text-center">
+                <!-- Loading Content -->
+            </div>
+        </div>
+
+        <!-- Landing Page -->
+        <div id="landing-page" class="hidden min-h-screen">
+            <!-- Hero Section -->
+            <div class="flex flex-col items-center justify-center min-h-screen p-8 bg-gradient-to-b from-slate-900 to-slate-800">
+                <div class="max-w-6xl mx-auto text-center">
+                    <!-- Main Hero -->
+                    <h1 class="text-7xl font-bold mb-6 bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text text-transparent">
+                        STREAM YOUR<br>
+                        <span class="text-white">MEDIA ANYWHERE</span>
+                    </h1>
+                    
+                    <p class="text-2xl text-gray-300 mb-8 leading-relaxed max-w-4xl mx-auto">
+                        The <strong class="text-white">fastest</strong>, <strong class="text-white">simplest</strong> way to stream your personal media collection. 
+                        No subscriptions, no tracking, no limits.
+                    </p>
+
+                    <!-- Hero CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+                        <button id="connect-btn" class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-4 px-8 rounded-lg text-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
+                            <svg class="w-6 h-6 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                            </svg>
+                            Stream Now
+                        </button>
+                        
+                        <a href="/server" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-4 px-8 rounded-lg text-xl transition-all duration-200 border border-gray-500 hover:border-gray-400">
+                            <svg class="w-6 h-6 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"></path>
+                            </svg>
+                            Setup Server
+                        </a>
+                    </div>
+
+                    <!-- Trust Indicators -->
+                    <div class="flex flex-wrap justify-center items-center gap-8 text-gray-400 text-sm">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            100% Free
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            </svg>
+                            Privacy First
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            Lightning Fast
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Easy Setup
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="py-20 px-8 bg-slate-800">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl font-bold text-white mb-4">Your Media, Your Way</h2>
+                        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                            Stop juggling between different apps and services. Index Stream brings all your personal media together in one beautiful, fast interface.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                        <!-- Video Streaming -->
+                        <div class="bg-gray-700 border border-gray-600 rounded-xl p-8 hover:border-blue-500 transition-all duration-300 hover:transform hover:scale-105">
+                            <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl flex items-center justify-center">
+                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-4">Movies & TV Shows</h3>
+                            <p class="text-gray-300 leading-relaxed mb-4">
+                                Stream your entire movie and TV collection in stunning quality. Automatic organization, beautiful artwork, and seamless playback across all devices.
+                            </p>
+                            <ul class="text-gray-400 text-sm space-y-1">
+                                <li>• 4K & HDR support</li>
+                                <!--<li>• Automatic transcoding</li>-->
+                                <li>• Resume anywhere</li>
+                            </ul>
+                        </div>
+
+                        <!-- Music Playback -->
+                        <div class="bg-gray-700 border border-gray-600 rounded-xl p-8 hover:border-green-500 transition-all duration-300 hover:transform hover:scale-105">
+                            <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-green-600 to-green-700 rounded-xl flex items-center justify-center">
+                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-4">Music Library</h3>
+                            <p class="text-gray-300 leading-relaxed mb-4">
+                                Your music collection, beautifully organized and instantly accessible. Create playlists, discover new favorites, and enjoy lossless audio quality.
+                            </p>
+                            <ul class="text-gray-400 text-sm space-y-1">
+                                <li>• Lossless audio support</li>
+                                <!--<li>• Smart playlists</li>-->
+                                <li>• Crossfade & gapless</li>
+                            </ul>
+                        </div>
+
+                        <!-- Photo Gallery -->
+                        <div class="bg-gray-700 border border-gray-600 rounded-xl p-8 hover:border-purple-500 transition-all duration-300 hover:transform hover:scale-105">
+                            <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-purple-600 to-purple-700 rounded-xl flex items-center justify-center">
+                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-4">Photo Gallery</h3>
+                            <p class="text-gray-300 leading-relaxed mb-4">
+                                Relive your memories with a stunning photo gallery. Automatic organization by date and location. Share moments with family and friends.
+                            </p>
+                            <ul class="text-gray-400 text-sm space-y-1">
+                                <li>• Smart organization</li>
+                                <!--<li>• Face recognition</li>-->
+                                <li>• Easy sharing</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Why Choose Index Stream -->
+            <div class="py-20 px-8 bg-slate-900">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl font-bold text-white mb-4">Why Choose Index Stream?</h2>
+                        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                            While others complicate your media experience, we make it simple, fast and safe.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                        <!-- Left side - Benefits -->
+                        <div class="space-y-8">
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white mb-2">Lightning Fast Performance</h3>
+                                    <p class="text-gray-300">Optimized for speed. Your media loads instantly and streams smoothly.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-gradient-to-r from-green-600 to-green-700 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white mb-2">Complete Privacy</h3>
+                                    <p class="text-gray-300">Your data stays on your network. No tracking, no cloud uploads, no data collection.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-gradient-to-r from-purple-600 to-purple-700 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white mb-2">Zero Configuration</h3>
+                                    <p class="text-gray-300">Set up in minutes, not hours. Our smart auto-detection handles everything for you.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-gradient-to-r from-orange-600 to-orange-700 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white mb-2">Truly Free</h3>
+                                    <p class="text-gray-300">No subscriptions, no premium tiers, no hidden costs. Everything is included.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right side - CTA -->
+                        <div class="bg-gradient-to-br from-gray-800 to-gray-700 rounded-2xl p-8 border border-gray-600">
+                            <h3 class="text-2xl font-bold text-white mb-4">Ready to Get Started?</h3>
+                            <!--<p class="text-gray-300 mb-6">
+                                Join thousands of users who've simplified their media experience with Index Stream.
+                            </p>-->
+                            <p class="text-gray-300 mb-6">
+                                Join other users who've simplified their media experience with Index Stream.
+                            </p>
+                            <div class="space-y-4">
+                                <button id="connect-btn-secondary" class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200">
+                                    Connect to Your Server
+                                </button>
+                                <a href="/server" class="block w-full text-center bg-gray-600 hover:bg-gray-500 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200">
+                                    Learn How to Setup
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Connect Page -->
+        <div id="connect-page" class="hidden flex flex-col items-center justify-center min-h-screen p-8 pt-32 bg-gradient-to-b from-slate-900 to-slate-800">
+            <div class="max-w-md mx-auto w-full">
+                <!-- Header -->
+                <div class="text-center mb-8">
+                    <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text text-transparent">
+                        Connect to Server
+                    </h1>
+                    <p class="text-lg text-gray-300">
+                        Enter the connect code from your Index Media Server
+                    </p>
+                </div>
+
+                <!-- Connect Form -->
+                <form id="connect-form" class="space-y-6">
+                    <div>
+                        <label for="connect-code" class="block text-sm font-medium text-gray-300 mb-2">
+                            Connect Code
+                        </label>
+                        <input 
+                            type="text" 
+                            id="connect-code" 
+                            name="connect-code" 
+                            placeholder="Enter connect code" 
+                            class="w-full px-4 py-3 bg-gray-700 border border-gray-500 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center text-2xl font-mono tracking-widest uppercase"
+                            autocomplete="off"
+                            spellcheck="false"
+                        >
+                        <p class="text-gray-400 text-sm mt-2 text-center">
+                            The connect code is displayed on your Index Media Server
+                        </p>
+                    </div>
+
+                    <!-- Error Message -->
+                    <div id="connect-error" class="text-red-400 text-sm text-center hidden">
+                        Error message will appear here
+                    </div>
+
+                    <!-- Connect Button -->
+                    <button 
+                        type="submit" 
+                        id="connect-submit-btn" 
+                        class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+                        disabled
+                    >
+                        <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                        </svg>
+                        Connect
+                    </button>
+                </form>
+
+                <!-- Process Step (Certificate) -->
+                <div id="certificate-step" class="hidden text-center">
+                    <p class="text-gray-300 mb-8">The server uses a self-signed certificate. You need to accept it in your browser first.</p>
+                    <button 
+                        id="visit-server-cert-btn" 
+                        class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl mb-8"
+                    >
+                        Visit Server to Accept Certificate
+                    </button>
+                    <p class="text-sm text-gray-400 mb-6">
+                        After clicking, look for "Advanced" (Chrome), "Show Details" (Safari), or similar options, and then proceed to the server site.
+                    </p>
+                    <button 
+                        id="try-again-cert-btn" 
+                        class="text-gray-400 hover:text-gray-300 transition-colors text-sm"
+                    >
+                        Try Connecting Again
+                    </button>
+                </div>
+
+                <!-- Process Step (Authentication) -->
+                <div id="authentication-step" class="hidden text-center">
+                    <h3 class="text-xl font-semibold text-white mb-4">Authenticate</h3>
+                    <p class="text-gray-300 mb-6">The server requires authentication. Please visit the server to enter your password.</p>
+                    <button 
+                        id="visit-server-auth-btn" 
+                        class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl mb-4"
+                    >
+                        Visit Server to Authenticate
+                    </button>
+                    <p class="text-sm text-gray-400 mb-6">
+                        Enter your server password, then return here and try connecting again.
+                    </p>
+                    <button 
+                        id="try-again-auth-btn" 
+                        class="text-gray-400 hover:text-gray-300 transition-colors text-sm"
+                    >
+                        Try Connecting Again
+                    </button>
+                </div>
+
+                <!-- Back Button -->
+                <div class="mt-8 text-center">
+                    <button 
+                        id="back-to-landing-btn" 
+                        class="text-gray-400 hover:text-gray-300 transition-colors text-sm flex items-center justify-center mx-auto"
+                    >
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                        Back to Home
+                    </button>
+                </div>
+
+                <!-- Help Section -->
+                <div id="help-section" class="mt-12 bg-gray-800 border border-gray-600 rounded-lg p-4 pb-2">
+                    <h3 id="help-toggle" class="text-sm font-medium text-gray-400 mb-2 cursor-pointer hover:text-gray-300 transition-colors flex items-center justify-between">
+                        <span>Need Help?</span>
+                        <svg id="help-arrow" class="w-5 h-5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </h3>
+                    <div id="help-content" class="space-y-2 text-sm text-gray-300 overflow-hidden transition-all duration-300 ease-in-out" style="max-height: 0px;">
+                        <p>• Make sure your Index Media Server is running</p>
+                        <p>• Check that you're on the same network as the server</p>
+                        <p>• Letters A-H, J-N, P-Z and numbers 0-9 (case insensitive)</p>
+                        <p>• Contact your server administrator if you don't have a code</p>
+                        <div class="mt-4">
+                            <a href="/server" class="text-blue-400 hover:text-blue-300 underline text-sm">
+                                Learn how to set up an Index Media Server
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

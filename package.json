@@ -1,0 +1,21 @@
+{
+  "name": "index-stream",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "",
+  "main": "app.js",
+  "author": "kalegd",
+  "license": "MPL 2.0",
+  "scripts": {
+    "start": "http-server -c-1 -p 8000",
+    "test": "node --test",
+    "build:css": "tailwindcss -i ./styles/input.css -o ./styles/main.css --minify",
+    "watch:css": "tailwindcss -i ./styles/input.css -o ./styles/main.css --watch"
+  },
+  "dependencies": {
+    "http-server": "^14.1.1"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}
