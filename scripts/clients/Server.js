@@ -1,4 +1,3 @@
-import { IS_DEV, IS_LOCAL } from '../constants/constants.js';
 const DEFAULT_TIMEOUT = 5000;
 
 class Server {
@@ -6,11 +5,22 @@ class Server {
         this._serverUrl = localStorage.getItem('serverUrl');
         this._serverId = localStorage.getItem('serverId');
         if(this._serverUrl) this._apiUrl = this._serverUrl + 'api';
-        if(IS_DEV) this._serverUrl += '?dev=' + ((IS_LOCAL) ? 'local' : 'true');
     }
 
-    getServerUrl() {
-        return this._serverUrl;
+    getActiveIndex() {
+        return this._activeIndex;
+    }
+
+    getActiveProfile() {
+        return this._activeProfile;
+    }
+
+    getIndexes() {
+        return this._indexes;
+    }
+
+    getProfiles() {
+        return this._profiles;
     }
 
     getServerId() {
@@ -21,12 +31,28 @@ class Server {
         return this._serverName;
     }
 
-    getProfiles() {
-        return this._profiles;
+    getServerUrl() {
+        return this._serverUrl;
+    }
+
+    setActiveIndex(indexId) {
+        this._activeIndex = this._indexes.find(index => index.id === indexId);
+    }
+
+    setActiveProfile(profileId) {
+        this._activeProfile = this._profiles.find(profile => profile.id === profileId);
     }
 
     setToken(token) {
         this._token = token;
+    }
+
+    setIndexes(indexes) {
+        this._indexes = indexes;
+    }
+
+    setProfiles(profiles) {
+        this._profiles = profiles;
     }
 
     setServer(ip, port) {
@@ -45,16 +71,16 @@ class Server {
         this._serverName = serverName;
     }
 
-    setProfiles(profiles) {
-        this._profiles = profiles;
-    }
-
     async ping() {
         return this._get('/ping');
     }
 
     async getConfig() {
         return this._getAuthenticated('/config');
+    }
+
+    async getIndexIcon(indexId) {
+        return this._getAuthenticated('/index/' + indexId + '/icon');
     }
 
     async checkToken(token) {

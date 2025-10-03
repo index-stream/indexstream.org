@@ -30,6 +30,7 @@ class InitialPage extends Page {
                 const response = await Server.checkToken(token);
                 Server.setServerName(response.serverName);
                 Server.setProfiles(response.profiles);
+                Server.setIndexes(response.indexes);
                 return true;
             } catch (error) {
                 if(loadingElement) loadingElement.classList.add('hidden');

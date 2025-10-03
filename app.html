@@ -179,19 +179,29 @@
                     </p>
                 </div>
 
-                <!-- Loading State -->
-                <div id="profiles-loading" class="text-center">
-                    <div class="flex flex-col items-center justify-center py-12">
-                        <svg class="w-12 h-12 text-blue-500 animate-spin mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                        </svg>
-                        <p class="text-gray-300 text-lg">Loading profiles...</p>
-                    </div>
+                <!-- Profiles Content (hidden initially) -->
+                <div id="profiles-content">
+                    <!-- Profiles will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Indexes Page -->
+        <div id="indexes-page" class="hidden flex flex-col items-center justify-center min-h-screen p-8 pt-32 bg-gradient-to-b from-slate-900 to-slate-800">
+            <div class="max-w-4xl mx-auto w-full">
+                <!-- Header -->
+                <div class="text-center mb-8">
+                    <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text text-transparent">
+                        Select Index
+                    </h1>
+                    <p class="text-lg text-gray-300">
+                        Choose an index to stream media from
+                    </p>
                 </div>
 
-                <!-- Profiles Content (hidden initially) -->
-                <div id="profiles-content" class="hidden">
-                    <!-- Profiles will be loaded here -->
+                <!-- Indexes Content (hidden initially) -->
+                <div id="indexes-content">
+                    <!-- Indexes will be loaded here -->
                 </div>
             </div>
         </div>

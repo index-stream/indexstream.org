@@ -150,6 +150,7 @@ class ConnectPage extends Page {
                     Server.setServerId(response.serverId);
                     Server.setServerName(response.serverName);
                     Server.setProfiles(response.profiles);
+                    Server.setIndexes(response.indexes);
                     PageController.showPage(PAGES.PROFILES);
                 } catch (error) {
                     this.showAuthenticationError();
@@ -344,6 +345,7 @@ class ConnectPage extends Page {
                 Server.setServerId(event.data.serverId);
                 Server.setServerName(event.data.serverName);
                 Server.setProfiles(event.data.profiles);
+                Server.setIndexes(event.data.indexes);
                 
                 if(this._backupListenerForLostOpener) {
                     window.removeEventListener('focus', this._backupListenerForLostOpener);

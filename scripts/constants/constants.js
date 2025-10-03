@@ -3,6 +3,7 @@ export const PAGES = {
     INITIAL: 'initial',
     CONNECT: 'connect',
     PROFILES: 'profiles',
+    INDEXES: 'indexes',
     HOME: 'home'
 };
 

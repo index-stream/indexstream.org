@@ -3,6 +3,7 @@ import { PAGES } from './constants/constants.js';
 import InitialPage from './pages/InitialPage.js';
 import ConnectPage from './pages/ConnectPage.js';
 import ProfilesPage from './pages/ProfilesPage.js';
+import IndexesPage from './pages/IndexesPage.js';
 
 class Main {
     constructor() {
@@ -20,6 +21,7 @@ class Main {
         PageController.register(new InitialPage(), PAGES.INITIAL);
         PageController.register(new ConnectPage(), PAGES.CONNECT);
         PageController.register(new ProfilesPage(), PAGES.PROFILES);
+        PageController.register(new IndexesPage(), PAGES.INDEXES);
     }
 }
 
