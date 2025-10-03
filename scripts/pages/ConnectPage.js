@@ -86,7 +86,6 @@ class ConnectPage extends Page {
     }
 
     async onShow() {
-        console.log('TODO: Check cache for token');
         // Focus on the connect code input
         const connectCodeInput = document.getElementById('connect-code');
         if (connectCodeInput) {
@@ -140,21 +139,35 @@ class ConnectPage extends Page {
             Server.setServer(ip, port);
             let response = await Server.ping();
             if(!response.message.includes('Index Media Server')) throw new Error('Invalid connect code');
+            Server.setServerId(response.serverId);
 
-            try {
-                response = await Server.login();
-                Server.setToken(response.token);
-                PageController.showPage(PAGES.PROFILES);
-            } catch (error) {
+            const token = localStorage.getItem(response.serverId);
+            if(token) {
+                try {
+                    response = await Server.checkToken(token);
+                    localStorage.setItem(response.serverId, response.token);
+                    Server.setToken(response.token);
+                    Server.setServerId(response.serverId);
+                    Server.setServerName(response.serverName);
+                    Server.setProfiles(response.profiles);
+                    PageController.showPage(PAGES.PROFILES);
+                } catch (error) {
+                    this.showAuthenticationError();
+                }
+            } else {
                 this.showAuthenticationError();
             }
-            
         } catch (error) {
             if (error.name == 'TypeError') {
                 this.showCertificateError();
             } else {
                 console.error('Connection failed:', error);
-                this.showError('Failed to connect to server. Please check your connect code and try again.');
+                let errorData = JSON.parse(error.message || {});
+                if(errorData.status == 503) {
+                    this.showError('Server has not been initialized yet. Please set up your server first.');
+                } else {
+                    this.showError('Failed to connect to server. Please check your connect code and try again.');
+                }
             }
         } finally {
             this.setLoadingState(false);
@@ -326,8 +339,11 @@ class ConnectPage extends Page {
                 
                 console.log('Authentication successful! Token received:', event.data.token);
                 
-                // Store the token
+                localStorage.setItem(event.data.serverId, event.data.token);
                 Server.setToken(event.data.token);
+                Server.setServerId(event.data.serverId);
+                Server.setServerName(event.data.serverName);
+                Server.setProfiles(event.data.profiles);
                 
                 if(this._backupListenerForLostOpener) {
                     window.removeEventListener('focus', this._backupListenerForLostOpener);

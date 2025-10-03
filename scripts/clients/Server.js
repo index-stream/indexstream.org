@@ -1,21 +1,32 @@
-import { IS_DEV } from '../constants/constants.js';
+import { IS_DEV, IS_LOCAL } from '../constants/constants.js';
 const DEFAULT_TIMEOUT = 5000;
 
 class Server {
     constructor() {
-        this._token = localStorage.getItem('token');
         this._serverUrl = localStorage.getItem('serverUrl');
+        this._serverId = localStorage.getItem('serverId');
         if(this._serverUrl) this._apiUrl = this._serverUrl + 'api';
-        if(IS_DEV) this._serverUrl += '?dev=true';
+        if(IS_DEV) this._serverUrl += '?dev=' + ((IS_LOCAL) ? 'local' : 'true');
     }
 
     getServerUrl() {
         return this._serverUrl;
     }
 
+    getServerId() {
+        return this._serverId;
+    }
+
+    getServerName() {
+        return this._serverName;
+    }
+
+    getProfiles() {
+        return this._profiles;
+    }
+
     setToken(token) {
         this._token = token;
-        localStorage.setItem('token', token);
     }
 
     setServer(ip, port) {
@@ -25,19 +36,28 @@ class Server {
         localStorage.setItem('serverUrl', url);
     }
 
-    async ping() {
-        return this._get('/ping');
+    setServerId(serverId) {
+        this._serverId = serverId;
+        localStorage.setItem('serverId', serverId);
     }
 
-    async login() {
-        return this._post('/login');
+    setServerName(serverName) {
+        this._serverName = serverName;
+    }
+
+    setProfiles(profiles) {
+        this._profiles = profiles;
+    }
+
+    async ping() {
+        return this._get('/ping');
     }
 
     async getConfig() {
         return this._getAuthenticated('/config');
     }
 
-    async getToken(token) {
+    async checkToken(token) {
         return this._get('/token', { token });
     }
 

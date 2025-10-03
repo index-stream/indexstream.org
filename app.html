@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Stream</title>
+    <link rel="stylesheet" href="./styles/main.css">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="description" content="Connect to your Index Media Server to stream videos, music, and view photos">
+    <script type="module" src="./scripts/main.js"></script>
+</head>
+<body class="bg-slate-900 text-white min-h-screen">
+    <!-- Main App Container -->
+    <div id="app" class="min-h-screen">
+        <!-- Initial Page -->
+        <div id="initial-page" class="flex flex-col items-center justify-center min-h-screen p-8">
+            <div id="initial-page-loading" class="hidden flex flex-col items-center justify-center">
+                <svg class="w-12 h-12 text-blue-500 animate-spin mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                </svg>
+                <p class="text-gray-300 text-lg">Loading...</p>
+            </div>
+        </div>
+
+        <!-- Connect Page -->
+        <div id="connect-page" class="hidden flex flex-col items-center justify-center min-h-screen p-8 pt-32 bg-gradient-to-b from-slate-900 to-slate-800">
+            <div class="max-w-md mx-auto w-full">
+                <!-- Header -->
+                <div class="text-center mb-8">
+                    <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text text-transparent">
+                        Connect to Server
+                    </h1>
+                    <p class="text-lg text-gray-300">
+                        Enter the connect code from your Index Media Server
+                    </p>
+                </div>
+
+                <!-- Connect Form -->
+                <form id="connect-form" class="space-y-6">
+                    <div>
+                        <label for="connect-code" class="block text-sm font-medium text-gray-300 mb-2">
+                            Connect Code
+                        </label>
+                        <input 
+                            type="text" 
+                            id="connect-code" 
+                            name="connect-code" 
+                            placeholder="Enter connect code" 
+                            class="w-full px-4 py-3 bg-gray-700 border border-gray-500 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center text-2xl font-mono tracking-widest uppercase"
+                            autocomplete="off"
+                            spellcheck="false"
+                        >
+                        <p class="text-gray-400 text-sm mt-2 text-center">
+                            The connect code is displayed on your Index Media Server
+                        </p>
+                    </div>
+
+                    <!-- Error Message -->
+                    <div id="connect-error" class="text-red-400 text-sm text-center hidden">
+                        Error message will appear here
+                    </div>
+
+                    <!-- Connect Button -->
+                    <button 
+                        type="submit" 
+                        id="connect-submit-btn" 
+                        class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+                        disabled
+                    >
+                        <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                        </svg>
+                        Connect
+                    </button>
+                </form>
+
+                <!-- Process Step (Certificate) -->
+                <div id="certificate-step" class="hidden text-center">
+                    <p class="text-gray-300 mb-8">The server uses a self-signed certificate. You need to accept it in your browser first.</p>
+                    
+                    <!-- Network Connectivity Error -->
+                    <div id="network-error" class="hidden bg-gray-800 border border-gray-600 rounded-lg p-4 mb-6">
+                        <div class="flex items-center justify-center mb-2">
+                            <svg class="w-5 h-5 text-red-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                            </svg>
+                            <span class="text-red-400 font-medium">Connection Failed</span>
+                        </div>
+                        <p class="text-sm text-gray-400">
+                            <strong>Note:</strong> Make sure you're connected to the same WiFi network as your Index Media Server.
+                        </p>
+                    </div>
+                    <button 
+                        id="visit-server-cert-btn" 
+                        class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl mb-8"
+                    >
+                        Visit Server to Accept Certificate
+                    </button>
+                    <p class="text-sm text-gray-400 mb-6">
+                        After clicking, look for "Advanced" (Chrome), "Show Details" (Safari), or similar options, and then proceed to the server site.
+                    </p>
+                    <button 
+                        id="try-again-cert-btn" 
+                        class="text-gray-400 hover:text-gray-300 transition-colors text-sm flex items-center justify-center mx-auto mt-4"
+                    >
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                        Go Back
+                    </button>
+                </div>
+
+                <!-- Process Step (Authentication) -->
+                <div id="authentication-step" class="hidden text-center">
+                    <p class="text-gray-300 mb-6">The server requires authentication. Please visit the server and enter your password if requested.</p>
+                    <button 
+                        id="visit-server-auth-btn" 
+                        class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl mb-4"
+                    >
+                        Visit Server to Authenticate
+                    </button>
+                    <button 
+                        id="try-again-auth-btn" 
+                        class="text-gray-400 hover:text-gray-300 transition-colors text-sm flex items-center justify-center mx-auto mt-4"
+                    >
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                        Go Back
+                    </button>
+                </div>
+
+                <!-- Back Button -->
+                <div class="mt-8 text-center">
+                    <button 
+                        id="back-to-landing-btn" 
+                        class="text-gray-400 hover:text-gray-300 transition-colors text-sm flex items-center justify-center mx-auto"
+                    >
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                        Back to Home
+                    </button>
+                </div>
+
+                <!-- Help Section -->
+                <div id="help-section" class="mt-12 bg-gray-800 border border-gray-600 rounded-lg p-4 pb-2">
+                    <h3 id="help-toggle" class="text-sm font-medium text-gray-400 mb-2 cursor-pointer hover:text-gray-300 transition-colors flex items-center justify-between">
+                        <span>Need Help?</span>
+                        <svg id="help-arrow" class="w-5 h-5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </h3>
+                    <div id="help-content" class="space-y-2 text-sm text-gray-300 overflow-hidden transition-all duration-300 ease-in-out" style="max-height: 0px;">
+                        <p>• Make sure your Index Media Server is running</p>
+                        <p>• Check that you're on the same network as the server</p>
+                        <p>• Letters A-H, J-N, P-Z and numbers 0-9 (case insensitive)</p>
+                        <p>• Contact your server administrator if you don't have a code</p>
+                        <div class="mt-4">
+                            <a href="/server" class="text-blue-400 hover:text-blue-300 underline text-sm">
+                                Learn how to set up an Index Media Server
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profiles Page -->
+        <div id="profiles-page" class="hidden flex flex-col items-center justify-center min-h-screen p-8 pt-32 bg-gradient-to-b from-slate-900 to-slate-800">
+            <div class="max-w-4xl mx-auto w-full">
+                <!-- Header -->
+                <div class="text-center mb-8">
+                    <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text text-transparent">
+                        Select Profile
+                    </h1>
+                    <p class="text-lg text-gray-300">
+                        Choose a profile to access your media library
+                    </p>
+                </div>
+
+                <!-- Loading State -->
+                <div id="profiles-loading" class="text-center">
+                    <div class="flex flex-col items-center justify-center py-12">
+                        <svg class="w-12 h-12 text-blue-500 animate-spin mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                        <p class="text-gray-300 text-lg">Loading profiles...</p>
+                    </div>
+                </div>
+
+                <!-- Profiles Content (hidden initially) -->
+                <div id="profiles-content" class="hidden">
+                    <!-- Profiles will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
