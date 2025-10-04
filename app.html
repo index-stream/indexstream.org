@@ -76,7 +76,7 @@
 
                 <!-- Process Step (Certificate) -->
                 <div id="certificate-step" class="hidden text-center">
-                    <p class="text-gray-300 mb-8">The server uses a self-signed certificate. You need to accept it in your browser first.</p>
+                    <p class="text-gray-300 mb-8">The server might be using a self-signed certificate. You'll need to accept it in your browser first.</p>
                     
                     <!-- Network Connectivity Error -->
                     <div id="network-error" class="hidden bg-gray-800 border border-gray-600 rounded-lg p-4 mb-6">
@@ -130,19 +130,6 @@
                     </button>
                 </div>
 
-                <!-- Back Button -->
-                <div class="mt-8 text-center">
-                    <button 
-                        id="back-to-landing-btn" 
-                        class="text-gray-400 hover:text-gray-300 transition-colors text-sm flex items-center justify-center mx-auto"
-                    >
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                        </svg>
-                        Back to Home
-                    </button>
-                </div>
-
                 <!-- Help Section -->
                 <div id="help-section" class="mt-12 bg-gray-800 border border-gray-600 rounded-lg p-4 pb-2">
                     <h3 id="help-toggle" class="text-sm font-medium text-gray-400 mb-2 cursor-pointer hover:text-gray-300 transition-colors flex items-center justify-between">
@@ -183,6 +170,19 @@
                 <div id="profiles-content">
                     <!-- Profiles will be loaded here -->
                 </div>
+
+                <!-- Back Button -->
+                <div class="mt-8 text-center">
+                    <button 
+                        id="back-to-connect-btn" 
+                        class="text-gray-400 hover:text-gray-300 transition-colors text-sm flex items-center justify-center mx-auto"
+                    >
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                        Connect to Different Server
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -202,6 +202,19 @@
                 <!-- Indexes Content (hidden initially) -->
                 <div id="indexes-content">
                     <!-- Indexes will be loaded here -->
+                </div>
+
+                <!-- Back Button -->
+                <div class="mt-8 text-center">
+                    <button 
+                        id="back-to-profiles-btn" 
+                        class="text-gray-400 hover:text-gray-300 transition-colors text-sm flex items-center justify-center mx-auto"
+                    >
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                        Switch Profiles
+                    </button>
                 </div>
             </div>
         </div>

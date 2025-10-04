@@ -10,12 +10,16 @@ class ProfilesPage extends Page {
     }
 
     setupEventListeners() {
-        // Event listeners will be added here when needed
+        // Back button listener
+        const backBtn = document.getElementById('back-to-connect-btn');
+        if (backBtn) {
+            backBtn.addEventListener('click', () => {
+                PageController.showPage(PAGES.CONNECT);
+            });
+        }
     }
 
     async onShow() {
-        console.log('Profiles page shown');
-        
         try {
             const profiles = [
                 {color: "#00C600", id: "3d985a5b-5df9-4774-834d-e14b2e258564", name: "Gaurav"},

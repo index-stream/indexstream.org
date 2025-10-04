@@ -2,6 +2,7 @@ import Page from './Page.js';
 import { PAGES } from '../constants/constants.js';
 import PageController from '../controllers/PageController.js';
 import Server from '../clients/Server.js';
+import { decompressConnectCode } from '../utils/connect-code.js';
 
 class InitialPage extends Page {
     constructor() {
@@ -9,13 +10,36 @@ class InitialPage extends Page {
     }
 
     async onShow() {
-        console.log('Initial page shown');
+        const hasUrlConnectCode = this.checkUrlConnectCode();
+        if(hasUrlConnectCode) {
+            PageController.showPage(PAGES.CONNECT);
+            return;
+        }
 
         const isAlreadySetup = await this.checkIfConnected();
         if(isAlreadySetup) {
             PageController.showPage(PAGES.PROFILES);
         } else {
             PageController.showPage(PAGES.CONNECT);
+        }
+    }
+
+    checkUrlConnectCode() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const connectCode = urlParams.get('connectCode');
+        if(!connectCode) return false;
+        const connectCodeInput = document.getElementById('connect-code');
+        if (connectCodeInput) connectCodeInput.value = connectCode;
+        try {
+            const connectSubmitBtn = document.getElementById('connect-submit-btn');
+            if(connectSubmitBtn) {
+                connectSubmitBtn.disabled = false;
+                connectSubmitBtn.click();
+                return true;
+            }
+        } catch (error) {
+            console.error('Error checking URL connect code:', error);
+            Server.setServerId(null);
         }
     }
 

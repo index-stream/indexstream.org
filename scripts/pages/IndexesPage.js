@@ -10,12 +10,16 @@ class IndexesPage extends Page {
     }
 
     setupEventListeners() {
-        // Event listeners will be added here when needed
+        // Back button listener
+        const backBtn = document.getElementById('back-to-profiles-btn');
+        if (backBtn) {
+            backBtn.addEventListener('click', () => {
+                PageController.showPage(PAGES.PROFILES);
+            });
+        }
     }
 
     async onShow() {
-        console.log('Indexes page shown');
-        
         try {
             // Simulate API call - replace with actual Server.getIndexes() when ready
             let indexes = [
@@ -113,7 +117,7 @@ class IndexesPage extends Page {
                 <!-- Index Icon Container -->
                 <div class="relative w-32 h-32 mx-auto group-hover:scale-105 transition-all duration-300">
                     <!-- Index Icon -->
-                    <div class="w-full h-full rounded-lg overflow-hidden transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-blue-500/20 border border-gray-600 group-hover:border-blue-400 ${backgroundClass}">
+                    <div class="w-full h-full rounded-lg overflow-hidden transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-blue-500/20 border group-hover:border-blue-400 ${backgroundClass}">
                         <div class="w-full h-full flex items-center justify-center text-white transition-all duration-300 group-hover:scale-105 overflow-hidden">
                             ${this.getIndexIcon(index)}
                         </div>
@@ -139,14 +143,14 @@ class IndexesPage extends Page {
     getBackgroundClass(icon) {
         switch (icon) {
             case 'videos':
-                return 'bg-gradient-to-r from-blue-600 to-blue-700';
+                return 'bg-gradient-to-r from-blue-600 to-blue-700 border-blue-600';
             case 'music':
-                return 'bg-gradient-to-r from-green-600 to-green-700';
+                return 'bg-gradient-to-r from-green-600 to-green-700 border-green-600';
             case 'photos':
-                return 'bg-gradient-to-r from-purple-600 to-purple-700';
+                return 'bg-gradient-to-r from-purple-600 to-purple-700 border-purple-600';
             case 'home':
             default:
-                return 'bg-gradient-to-r from-slate-600 to-slate-700';
+                return 'bg-gradient-to-r from-slate-600 to-slate-700 border-slate-600';
         }
     }
 

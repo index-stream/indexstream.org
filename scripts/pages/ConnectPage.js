@@ -36,14 +36,6 @@ class ConnectPage extends Page {
             });
         }
 
-        // Back button
-        const backBtn = document.getElementById('back-to-landing-btn');
-        if (backBtn) {
-            backBtn.addEventListener('click', () => {
-                this.handleBack();
-            });
-        }
-
         // Certificate step buttons
         const visitServerCertBtn = document.getElementById('visit-server-cert-btn');
         const tryAgainCertBtn = document.getElementById('try-again-cert-btn');
@@ -127,15 +119,11 @@ class ConnectPage extends Page {
             this.showError('Invalid connect code');
             return;
         }
-        console.log("IP: ", ip);
-        console.log("Port: ", port);
 
         // Show loading state
         this.setLoadingState(true);
         
         try {
-            console.log('Attempting to connect with code:', connectCode);
-            
             Server.setServer(ip, port);
             let response = await Server.ping();
             if(!response.message.includes('Index Media Server')) throw new Error('Invalid connect code');
@@ -261,7 +249,6 @@ class ConnectPage extends Page {
     hideForm() {
         const headerDescription = document.querySelector('#connect-page .text-center.mb-8 p');
         const connectForm = document.getElementById('connect-form');
-        const backBtn = document.getElementById('back-to-landing-btn');
         const helpSection = document.getElementById('help-section');
         const certificateStep = document.getElementById('certificate-step');
         const authenticationStep = document.getElementById('authentication-step');
@@ -271,9 +258,6 @@ class ConnectPage extends Page {
         }
         if (connectForm) {
             connectForm.classList.add('hidden');
-        }
-        if (backBtn) {
-            backBtn.classList.add('hidden');
         }
         if (helpSection) {
             helpSection.classList.add('hidden');
@@ -292,7 +276,6 @@ class ConnectPage extends Page {
     showForm() {
         const headerDescription = document.querySelector('#connect-page .text-center.mb-8 p');
         const connectForm = document.getElementById('connect-form');
-        const backBtn = document.getElementById('back-to-landing-btn');
         const helpSection = document.getElementById('help-section');
         const certificateStep = document.getElementById('certificate-step');
         const authenticationStep = document.getElementById('authentication-step');
@@ -302,9 +285,6 @@ class ConnectPage extends Page {
         }
         if (connectForm) {
             connectForm.classList.remove('hidden');
-        }
-        if (backBtn) {
-            backBtn.classList.remove('hidden');
         }
         if (helpSection) {
             helpSection.classList.remove('hidden');
@@ -338,8 +318,6 @@ class ConnectPage extends Page {
                 event.data && 
                 event.data.type === 'AUTH_SUCCESS') {
                 
-                console.log('Authentication successful! Token received:', event.data.token);
-                
                 localStorage.setItem(event.data.serverId, event.data.token);
                 Server.setToken(event.data.token);
                 Server.setServerId(event.data.serverId);
@@ -366,7 +344,6 @@ class ConnectPage extends Page {
         let serverUrl = Server.getServerUrl() + '?hasOpener=true';
         if(IS_DEV) serverUrl += '&dev=' + ((IS_LOCAL) ? "local" : true);
         if (serverUrl) {
-            console.log("Opening server URL: ", serverUrl);
             this.authWindow = window.open(serverUrl, '_blank');
             //Add listener to when this tab is focused again
             if(backupListenerForLostOpener) {
@@ -409,10 +386,6 @@ class ConnectPage extends Page {
                 helpSection.classList.add('pb-2');
             }
         }
-    }
-
-    handleBack() {
-        PageController.showPage(PAGES.LANDING);
     }
 }
 
