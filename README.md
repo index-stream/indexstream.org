@@ -8,11 +8,7 @@
 
 Index Stream is a **privacy-first, open-source media streaming platform** designed for people who want complete control over their personal media without the complexity and overhead of traditional solutions.
 
-### Why Index Stream vs Plex/Jellyfin/Emby?
-
-**Index Stream is built for simplicity and speed.** While Plex, Jellyfin, and Emby are powerful, they often require extensive configuration, consume significant resources, and can be overwhelming for users who just want to stream their media quickly and securely.
-
-We focus on three core principles:
+### Why Index Stream?
 
 - 🚀 **Ease of Use** - Simple configurations with a modern UI
 - 🔒 **Privacy First** - No tracking, no cloud dependencies for local connections, no signups necessary 
