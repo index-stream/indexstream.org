@@ -3,9 +3,8 @@ import { API_URL } from '/scripts/constants/constants.js';
 class Backend {
     constructor() {}
 
-    async addToWaitlist(emailAddress, namePreference, openToInterview) {
+    async addToWaitlist(emailAddress, openToInterview) {
         let params = { emailAddress };
-        if(namePreference) params.namePreference = namePreference;
         if(openToInterview) params.openToInterview = openToInterview;
         return this._post('/waitlist/email', params);
     }
