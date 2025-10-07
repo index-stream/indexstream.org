@@ -2,7 +2,6 @@ import Page from './Page.js';
 import { PAGES } from '../constants/constants.js';
 import PageController from '../controllers/PageController.js';
 import Server from '../clients/Server.js';
-import { decompressConnectCode } from '../utils/connect-code.js';
 
 class InitialPage extends Page {
     constructor() {
