@@ -33,19 +33,19 @@ class IndexesPage extends Page {
                     "id": "456fe7bd-5884-4340-8bed-28d28hhsns8s",
                     "name": "Home Videos",
                     "mediaType": "videos",
-                    "icon": "videos"
+                    "icon": "movie"
                 },
                 {
                     "id": "789abc12-3456-7890-def1-234567890abc",
                     "name": "Music Library",
-                    "mediaType": "music",
+                    "mediaType": "audio",
                     "icon": "music"
                 },
                 {
                     "id": "def45678-9012-3456-7890-123456789def",
                     "name": "Photos",
                     "mediaType": "photos",
-                    "icon": "photos"
+                    "icon": "image"
                 },
                 {
                     "id": "456fe7bd-5884-4340-8bed-350daa9455f7",
@@ -142,11 +142,11 @@ class IndexesPage extends Page {
 
     getBackgroundClass(icon) {
         switch (icon) {
-            case 'videos':
+            case 'movie':
                 return 'bg-gradient-to-r from-blue-600 to-blue-700 border-blue-600';
             case 'music':
                 return 'bg-gradient-to-r from-green-600 to-green-700 border-green-600';
-            case 'photos':
+            case 'image':
                 return 'bg-gradient-to-r from-purple-600 to-purple-700 border-purple-600';
             case 'home':
             default:
@@ -178,10 +178,10 @@ class IndexesPage extends Page {
             case 'music':
                 return `<img src="./images/icon_music.svg" alt="Music" class="${iconSize} text-green-400">`;
             
-            case 'photos':
+            case 'image':
                 return `<img src="./images/icon_image.svg" alt="Photos" class="${iconSize} text-purple-400">`;
             
-            case 'videos':
+            case 'movie':
             default:
                 return `<img src="./images/icon_movie.svg" alt="Videos" class="${iconSize} text-blue-400">`;
         }
@@ -190,7 +190,7 @@ class IndexesPage extends Page {
     getMediaTypeLabel(mediaType) {
         switch (mediaType) {
             case 'videos': return 'Videos';
-            case 'music': return 'Music';
+            case 'audio': return 'Audio';
             case 'photos': return 'Photos';
             default: return 'Media';
         }
