@@ -24,45 +24,45 @@ class IndexesPage extends Page {
             // Simulate API call - replace with actual Server.getIndexes() when ready
             let indexes = [
                 {
-                    "id": "ff6344c9-1f14-4104-9c15-d705535d8cd2",
+                    "id": "1",
                     "name": "Home",
-                    "mediaType": "videos",
+                    "type": "videos",
                     "icon": "home"
                 },
                 {
-                    "id": "456fe7bd-5884-4340-8bed-28d28hhsns8s",
+                    "id": "5",
                     "name": "Home Videos",
-                    "mediaType": "videos",
+                    "type": "videos",
                     "icon": "movie"
                 },
                 {
-                    "id": "789abc12-3456-7890-def1-234567890abc",
+                    "id": "6",
                     "name": "Music Library",
-                    "mediaType": "audio",
+                    "type": "audio",
                     "icon": "music"
                 },
                 {
-                    "id": "def45678-9012-3456-7890-123456789def",
+                    "id": "7",
                     "name": "Photos",
-                    "mediaType": "photos",
+                    "type": "photos",
                     "icon": "image"
                 },
                 {
-                    "id": "456fe7bd-5884-4340-8bed-350daa9455f7",
+                    "id": "2",
                     "name": "Anime",
-                    "mediaType": "videos",
+                    "type": "videos",
                     "icon": "custom"
                 },
                 {
-                    "id": "456fe7bd-5884-4340-8bed-350daa9455f6",
+                    "id": "3",
                     "name": "Educational",
-                    "mediaType": "videos",
+                    "type": "videos",
                     "icon": "custom"
                 },
                 {
-                    "id": "456fe7bd-5884-4340-8bed-350daa9455f5",
+                    "id": "4",
                     "name": "Me",
-                    "mediaType": "photos",
+                    "type": "photos",
                     "icon": "custom"
                   }
             ];
@@ -133,7 +133,7 @@ class IndexesPage extends Page {
                         ${index.name}
                     </h3>
                     <p class="text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
-                        ${this.getMediaTypeLabel(index.mediaType)}
+                        ${this.getMediaTypeLabel(index.type)}
                     </p>
                 </div>
             </div>
@@ -164,7 +164,7 @@ class IndexesPage extends Page {
                      </div>`;
         } else {
             // Use predefined SVG icons
-            return this.getPredefinedIcon(index.icon, index.mediaType);
+            return this.getPredefinedIcon(index.icon, index.type);
         }
     }
 

@@ -22,11 +22,11 @@ class ProfilesPage extends Page {
     async onShow() {
         try {
             const profiles = [
-                {color: "#00C600", id: "3d985a5b-5df9-4774-834d-e14b2e258564", name: "Gaurav"},
-                {color: "#40E0D0", id: "2c7a8b9c-4ef8-4673-923c-d25c3f147abc", name: "Yunzhe"},
-                {color: "#7777FF", id: "1b6c9d8e-3de7-4562-812b-c14d2e036def", name: "Mom"},
-                {color: "#FF7777", id: "0a5b8c7d-2cf6-3451-701a-b03c1d925cde", name: "Dad"},
-                {color: "#FF8DA1", id: "0a5b8c7d-2cf6-3451-701a-b03c1d925cdd", name: "Kids"},
+                {color: "#00C600", id: "1", name: "Gaurav"},
+                {color: "#40E0D0", id: "2", name: "Yunzhe"},
+                {color: "#7777FF", id: "3", name: "Mom"},
+                {color: "#FF7777", id: "4", name: "Dad"},
+                {color: "#FF8DA1", id: "5", name: "Kids"},
             ];
             //const profiles = Server.getProfiles();
             
