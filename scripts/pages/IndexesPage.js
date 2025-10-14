@@ -2,6 +2,7 @@ import Page from './Page.js';
 import { PAGES } from '../constants/constants.js';
 import Server from '../clients/Server.js';
 import PageController from '../controllers/PageController.js';
+import Indexes from '../models/Indexes.js';
 
 class IndexesPage extends Page {
     constructor() {
@@ -22,51 +23,52 @@ class IndexesPage extends Page {
     async onShow() {
         try {
             // Simulate API call - replace with actual Server.getIndexes() when ready
-            let indexes = [
-                {
-                    "id": "1",
-                    "name": "Home",
-                    "type": "videos",
-                    "icon": "home"
-                },
-                {
-                    "id": "5",
-                    "name": "Home Videos",
-                    "type": "videos",
-                    "icon": "movie"
-                },
-                {
-                    "id": "6",
-                    "name": "Music Library",
-                    "type": "audio",
-                    "icon": "music"
-                },
-                {
-                    "id": "7",
-                    "name": "Photos",
-                    "type": "photos",
-                    "icon": "image"
-                },
-                {
-                    "id": "2",
-                    "name": "Anime",
-                    "type": "videos",
-                    "icon": "custom"
-                },
-                {
-                    "id": "3",
-                    "name": "Educational",
-                    "type": "videos",
-                    "icon": "custom"
-                },
-                {
-                    "id": "4",
-                    "name": "Me",
-                    "type": "photos",
-                    "icon": "custom"
-                  }
-            ];
-            
+            //let indexes = [
+            //    {
+            //        "id": "1",
+            //        "name": "Home",
+            //        "type": "videos",
+            //        "icon": "home"
+            //    },
+            //    {
+            //        "id": "5",
+            //        "name": "Home Videos",
+            //        "type": "videos",
+            //        "icon": "movie"
+            //    },
+            //    {
+            //        "id": "6",
+            //        "name": "Music Library",
+            //        "type": "audio",
+            //        "icon": "music"
+            //    },
+            //    {
+            //        "id": "7",
+            //        "name": "Photos",
+            //        "type": "photos",
+            //        "icon": "image"
+            //    },
+            //    {
+            //        "id": "2",
+            //        "name": "Anime",
+            //        "type": "videos",
+            //        "icon": "custom"
+            //    },
+            //    {
+            //        "id": "3",
+            //        "name": "Educational",
+            //        "type": "videos",
+            //        "icon": "custom"
+            //    },
+            //    {
+            //        "id": "4",
+            //        "name": "Me",
+            //        "type": "photos",
+            //        "icon": "custom"
+            //      }
+            //];
+            const indexes = Indexes.getIndexes();
+
             // Render indexes or empty state
             if (indexes.length === 0) {
                 this.renderEmptyState();
@@ -228,7 +230,7 @@ class IndexesPage extends Page {
             }, 150);
         }
 
-        Server.setActiveIndex(indexId);
+        Indexes.setActiveIndex(indexId);
         // TODO: Navigate to next page or handle index selection
         console.log('Index selected:', indexId);
     }

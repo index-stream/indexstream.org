@@ -2,6 +2,8 @@ import Page from './Page.js';
 import { PAGES } from '../constants/constants.js';
 import Server from '../clients/Server.js';
 import PageController from '../controllers/PageController.js';
+import { getInitials } from '../utils/text.js';
+import Profiles from '../models/Profiles.js';
 
 class ProfilesPage extends Page {
     constructor() {
@@ -21,14 +23,15 @@ class ProfilesPage extends Page {
 
     async onShow() {
         try {
-            const profiles = [
-                {color: "#00C600", id: "1", name: "Gaurav"},
-                {color: "#40E0D0", id: "2", name: "Yunzhe"},
-                {color: "#7777FF", id: "3", name: "Mom"},
-                {color: "#FF7777", id: "4", name: "Dad"},
-                {color: "#FF8DA1", id: "5", name: "Kids"},
-            ];
-            //const profiles = Server.getProfiles();
+            //const profiles = [
+            //    {color: "#00C600", id: "1", name: "Gaurav"},
+            //    {color: "#40E0D0", id: "2", name: "Yunzhe"},
+            //    {color: "#7777FF", id: "3", name: "Mom"},
+            //    {color: "#FF7777", id: "4", name: "Dad"},
+            //    {color: "#FF8DA1", id: "5", name: "Kids"},
+            //];
+            const profiles = Profiles.getProfiles();
+            console.log(profiles);
             
             // Render profiles
             this.renderProfiles(profiles);
@@ -55,7 +58,7 @@ class ProfilesPage extends Page {
     }
 
     createProfileCard(profile) {
-        const initials = this.getInitials(profile.name);
+        const initials = getInitials(profile.name);
         return `
             <div class="profile-card group cursor-pointer relative w-40 flex-shrink-0" data-profile-id="${profile.id}">
                 <!-- Profile Avatar Container -->
@@ -85,13 +88,6 @@ class ProfilesPage extends Page {
                 </div>
             </div>
         `;
-    }
-
-    getInitials(name) {
-        return name.split(' ')
-            .map(word => word.charAt(0).toUpperCase())
-            .join('')
-            .substring(0, 2);
     }
 
     darkenColor(color, percent) {
@@ -137,7 +133,7 @@ class ProfilesPage extends Page {
             }, 150);
         }
 
-        Server.setActiveProfile(profileId);
+        Profiles.setActiveProfile(profileId);
         PageController.showPage(PAGES.INDEXES);
     }
 

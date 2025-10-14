@@ -2,6 +2,8 @@ import Page from './Page.js';
 import { PAGES, IS_DEV, IS_LOCAL } from '../constants/constants.js';
 import PageController from '../controllers/PageController.js';
 import Server from '../clients/Server.js';
+import Profiles from '../models/Profiles.js';
+import Indexes from '../models/Indexes.js';
 import { decompressConnectCode } from '../utils/connect-code.js';
 import { getErrorMessage } from '../utils/errors.js';
 
@@ -138,16 +140,19 @@ class ConnectPage extends Page {
                     Server.setToken(response.token);
                     Server.setServerId(response.serverId);
                     Server.setServerName(response.serverName);
-                    Server.setProfiles(response.profiles);
-                    Server.setIndexes(response.indexes);
+                    Profiles.setProfiles(response.profiles);
+                    Indexes.setIndexes(response.indexes);
                     PageController.showPage(PAGES.PROFILES);
                 } catch (error) {
+                    if(PageController.getCurrentPage() != PAGES.CONNECT) PageController.showPage(PAGES.CONNECT);
                     this.showAuthenticationError();
                 }
             } else {
+                if(PageController.getCurrentPage() != PAGES.CONNECT) PageController.showPage(PAGES.CONNECT);
                 this.showAuthenticationError();
             }
         } catch (error) {
+            if(PageController.getCurrentPage() != PAGES.CONNECT) PageController.showPage(PAGES.CONNECT);
             if (error.name == 'TypeError') {
                 this.showCertificateError();
             } else {
@@ -324,8 +329,8 @@ class ConnectPage extends Page {
                 Server.setToken(event.data.token);
                 Server.setServerId(event.data.serverId);
                 Server.setServerName(event.data.serverName);
-                Server.setProfiles(event.data.profiles);
-                Server.setIndexes(event.data.indexes);
+                Profiles.setProfiles(event.data.profiles);
+                Indexes.setIndexes(event.data.indexes);
                 
                 if(this._backupListenerForLostOpener) {
                     window.removeEventListener('focus', this._backupListenerForLostOpener);

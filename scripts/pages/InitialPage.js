@@ -2,6 +2,8 @@ import Page from './Page.js';
 import { PAGES } from '../constants/constants.js';
 import PageController from '../controllers/PageController.js';
 import Server from '../clients/Server.js';
+import Profiles from '../models/Profiles.js';
+import Indexes from '../models/Indexes.js';
 
 class InitialPage extends Page {
     constructor() {
@@ -11,7 +13,7 @@ class InitialPage extends Page {
     async onShow() {
         const hasUrlConnectCode = this.checkUrlConnectCode();
         if(hasUrlConnectCode) {
-            PageController.showPage(PAGES.CONNECT);
+            //PageController.showPage(PAGES.CONNECT);
             return;
         }
 
@@ -52,8 +54,8 @@ class InitialPage extends Page {
             try {
                 const response = await Server.checkToken(token);
                 Server.setServerName(response.serverName);
-                Server.setProfiles(response.profiles);
-                Server.setIndexes(response.indexes);
+                Profiles.setProfiles(response.profiles);
+                Indexes.setIndexes(response.indexes);
                 return true;
             } catch (error) {
                 Server.setServerId(''); //To prevent trying to connect again on page refresh
