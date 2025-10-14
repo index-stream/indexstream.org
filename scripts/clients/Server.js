@@ -7,22 +7,6 @@ class Server {
         if(this._serverUrl) this._apiUrl = this._serverUrl + 'api';
     }
 
-    getActiveIndex() {
-        return this._activeIndex;
-    }
-
-    getActiveProfile() {
-        return this._activeProfile;
-    }
-
-    getIndexes() {
-        return this._indexes;
-    }
-
-    getProfiles() {
-        return this._profiles;
-    }
-
     getServerId() {
         return this._serverId;
     }
@@ -35,24 +19,8 @@ class Server {
         return this._serverUrl;
     }
 
-    setActiveIndex(indexId) {
-        this._activeIndex = this._indexes.find(index => index.id === indexId);
-    }
-
-    setActiveProfile(profileId) {
-        this._activeProfile = this._profiles.find(profile => profile.id === profileId);
-    }
-
     setToken(token) {
         this._token = token;
-    }
-
-    setIndexes(indexes) {
-        this._indexes = indexes;
-    }
-
-    setProfiles(profiles) {
-        this._profiles = profiles;
     }
 
     setServer(ip, port) {
