@@ -56,6 +56,7 @@ class InitialPage extends Page {
                 Server.setIndexes(response.indexes);
                 return true;
             } catch (error) {
+                Server.setServerId(''); //To prevent trying to connect again on page refresh
                 if(loadingElement) loadingElement.classList.add('hidden');
             }
         }

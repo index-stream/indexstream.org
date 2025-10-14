@@ -3,6 +3,7 @@ import { PAGES, IS_DEV, IS_LOCAL } from '../constants/constants.js';
 import PageController from '../controllers/PageController.js';
 import Server from '../clients/Server.js';
 import { decompressConnectCode } from '../utils/connect-code.js';
+import { getErrorMessage } from '../utils/errors.js';
 
 class ConnectPage extends Page {
     constructor() {
@@ -151,11 +152,12 @@ class ConnectPage extends Page {
                 this.showCertificateError();
             } else {
                 console.error('Connection failed:', error);
-                let errorData = JSON.parse(error.message || {});
+                let errorData = getErrorMessage(error);
                 if(errorData.status == 503) {
                     this.showError('Server has not been initialized yet. Please set up your server first.');
                 } else {
                     this.showError('Failed to connect to server. Please check your connect code and try again.');
+                    Server.setServerId(''); //To prevent initial page from trying to connect again
                 }
             }
         } finally {
